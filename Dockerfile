@@ -21,7 +21,7 @@ WORKDIR /app
 COPY pyproject.toml poetry.lock* ./
 
 # Устанавливаем зависимости (синтаксис Poetry 2.x)
-RUN poetry install
+RUN poetry install --no-root
 
 # Копируем остальной код
 COPY . .
