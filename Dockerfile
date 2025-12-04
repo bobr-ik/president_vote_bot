@@ -21,7 +21,8 @@ WORKDIR /root
 COPY pyproject.toml poetry.lock* ./
 
 # Устанавливаем зависимости (синтаксис Poetry 2.x)
-RUN poetry install --no-root
+RUN poetry config virtualenvs.create false \
+    && poetry install --no-root
 
 # Копируем остальной код
 COPY . .
