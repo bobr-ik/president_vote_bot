@@ -22,7 +22,7 @@ COPY pyproject.toml poetry.lock* ./
 
 # Устанавливаем зависимости (синтаксис Poetry 2.x)
 RUN poetry config virtualenvs.create false \
-    && poetry install --without dev --no-interaction --no-ansi
+    && poetry install --no-interaction --no-ansi
 
 # Копируем остальной код
 COPY . .
