@@ -47,6 +47,8 @@ async def change_photo(callback: CallbackQuery, callback_data: kb.ChangePhoto, s
 async def load_photo(message: Message, state: FSMContext):
     photo = message.photo[-1].file_id
     poster_id = await state.get_value('poster_id')
+    await state.clear()
+
 
     await crud.save_photo(message.from_user.id, photo, poster_id)
 
