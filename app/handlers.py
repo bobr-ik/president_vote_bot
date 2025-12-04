@@ -56,7 +56,6 @@ async def load_photo(message: Message, state: FSMContext):
     else:
         await message.answer(p.saved.format(how_much_photos=str(how_much_photos).rjust(2, ' ')), reply_markup=kb.more)
 
-    
 @rt.callback_query(F.data == 'more')
 async def more(callback: CallbackQuery):
     await callback.answer()

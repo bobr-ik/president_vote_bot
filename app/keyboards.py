@@ -11,7 +11,7 @@ async def wanna_change_photo(poster_id):
         inline_keyboard=[
             [
                 InlineKeyboardButton(text='Да', callback_data=ChangePhoto(poster_id=poster_id).pack()),
-                InlineKeyboardButton(text='Нет', callback_data='back')
+                InlineKeyboardButton(text='Нет', callback_data='more')
             ]
         ]
     )
