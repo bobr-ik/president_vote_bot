@@ -26,4 +26,4 @@ RUN poetry install --no-root
 # Копируем остальной код
 COPY . .
 
-CMD ["python", "main.py"]
+CMD ["python", "run.py"]
