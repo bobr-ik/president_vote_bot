@@ -73,9 +73,9 @@ async def more(callback: CallbackQuery):
     )
 
 
-@rt.message(F.photo)
-async def save_photo_file_id(message: Message):
-    photo_id = message.photo[-1]
+# @rt.message(F.photo)
+# async def save_photo_file_id(message: Message):
+#     photo_id = message.photo[-1]
 
     
 
