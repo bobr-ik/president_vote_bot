@@ -57,8 +57,9 @@ async def load_photo(message: Message, state: FSMContext):
         await message.answer(p.saved.format(how_much_photos=str(how_much_photos).rjust(2, ' ')), reply_markup=kb.more)
 
 @rt.callback_query(F.data == 'more')
-async def more(callback: CallbackQuery):
+async def more(callback: CallbackQuery, state: FSMContext):
     await callback.answer()
+    await state.clear()
     photos = await crud.get_all_photos_by_user(callback.from_user.id)
 
     if not photos:
