@@ -1,23 +1,32 @@
-# Используем официальный образ Python
 FROM python:3.13-slim
 
-# Устанавливаем зависимости для работы Poetry
-RUN apt-get update && apt-get install -y build-essential libssl-dev libffi-dev
+# Подавляем интерактивные вопросы
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
 
-# Копируем файлы Poetry
-COPY poetry.lock pyproject.toml /app/
+# Устанавливаем системные зависимости
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        curl \
+        build-essential \
+    && rm -rf /var/lib/apt/lists/*
 
 # Устанавливаем Poetry
-RUN curl -sSL https://install.python-poetry.org | python -
+RUN curl -sSL https://install.python-poetry.org | python3 -
+ENV PATH="/root/.local/bin:$PATH"
 
-# Копируем код приложения
-COPY . /app/
-
-# Переходим в директорию приложения
 WORKDIR /app
 
-# Устанавливаем зависимости с помощью Poetry
-RUN poetry install --no-dev
+# Копируем файлы Poetry
+COPY pyproject.toml poetry.lock* ./
+
+# Устанавливаем зависимости через Poetry
+RUN poetry config virtualenvs.create false \
+    && poetry install --no-dev --no-interaction --no-ansi
+
+# Копируем остальной код
+COPY . .
 
 # Запускаем приложение
-CMD ["poetry", "run", "start"]
+CMD ["python", "main.py"]
